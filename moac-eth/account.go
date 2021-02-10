@@ -25,8 +25,11 @@ var (
 )
 
 func main() {
-	key := "00000000000000000000000000000000000000000000000000000000000001aa"
-	getAccount(key)
+	//key := ""
+	for i := 0; i < 256; i++ {
+		getAccount(fmt.Sprintf("000000000000000000000000000000000000000000000000000000000000000%0*x", 2, i))
+		//getAccount(fmt.Sprintf("0000000000000000000000000000000000000000000000000000000000000000"))
+	}
 	// getAccountAndCheckBalance(key)
 }
 
@@ -38,7 +41,7 @@ func getAccount(key string) {
 	pub.X, pub.Y = c.ScalarBaseMult(seckey)
 	pub.Curve = c
 	addr := crypto.PubkeyToAddress(pub)
-	fmt.Printf("%s\n", addr.String())
+	fmt.Printf(key+": %s\n", addr.String())
 }
 
 func getAccountAndCheckBalance(key string) {
